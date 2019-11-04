@@ -1,0 +1,12 @@
+.idea
+*.iws
+*.iml
+*.ipr
+
+target/
+
+HELP.md
+.mvn
+mvnw
+mvnw.cmd
+_gitignore.txt
