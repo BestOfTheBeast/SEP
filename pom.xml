@@ -17,7 +17,8 @@
   <properties>
     <java.version>1.8</java.version>
 		<lombok.version>1.18.10</lombok.version>
-	</properties>
+    <guava.version>28.1-jre</guava.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -40,6 +41,11 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
     </dependency>
 
 
