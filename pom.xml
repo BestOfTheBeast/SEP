@@ -18,6 +18,7 @@
 		<lombok.version>1.18.10</lombok.version>
     <guava.version>28.1-jre</guava.version>
     <mockito.version>3.1.0</mockito.version>
+    <swagger.version>2.9.2</swagger.version>
   </properties>
 
   <dependencies>
@@ -48,10 +49,14 @@
       <version>${guava.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>${mockito.version}</version>
-      <scope>test</scope>
+      <artifactId>springfox-swagger2</artifactId>
+      <groupId>io.springfox</groupId>
+      <version>${swagger.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <groupId>io.springfox</groupId>
+      <version>${swagger.version}</version>
     </dependency>
 
 
@@ -65,6 +70,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
