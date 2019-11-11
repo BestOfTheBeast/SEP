@@ -49,8 +49,13 @@
       <version>${guava.version}</version>
     </dependency>
     <dependency>
-      <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
+      <groupId>io.springfox</groupId>
+      <version>${swagger.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <groupId>io.springfox</groupId>
       <version>${swagger.version}</version>
     </dependency>
 
