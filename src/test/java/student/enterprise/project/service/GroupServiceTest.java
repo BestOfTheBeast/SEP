@@ -12,6 +12,7 @@ import org.mockito.internal.util.MockUtil;
 import student.enterprise.project.entity.ChangeEntity;
 import student.enterprise.project.entity.GroupEntity;
 import student.enterprise.project.repository.GroupRepository;
+import student.enterprise.project.service.impl.GroupService;
 
 public class GroupServiceTest {
 
