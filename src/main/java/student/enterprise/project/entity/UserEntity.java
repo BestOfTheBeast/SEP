@@ -28,9 +28,11 @@ public class UserEntity {
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private List<UserGroupEntity> groupRoleList;
 
+  @Column(name = "login")
   private String login;
 
   @Email
+  @Column(name = "email")
   private String email;
 
   @Column(name = "password")

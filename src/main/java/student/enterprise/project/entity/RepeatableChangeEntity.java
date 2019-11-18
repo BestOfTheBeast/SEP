@@ -4,12 +4,10 @@ import lombok.*;
 import student.enterprise.project.converter.jpa.LocalDateAttributeConverter;
 import student.enterprise.project.dto.enums.RepeatFrequency;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -27,11 +25,12 @@ public class RepeatableChangeEntity extends ChangeEntity {
     @Column(name = "end_date", columnDefinition = "DATE")
     private LocalDate endDate;
 
+    @Convert(converter = LocalDateAttributeConverter.class)
+    @Column(name = "repeat_date", columnDefinition = "DATE")
+    private LocalDate repeatDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "frequency")
     private RepeatFrequency frequency;
 
-    @Override
-    public LocalDateTime getDateTime() {
-        //TODO define what date should be returned for repeatable change
-        return null;
-    }
 }

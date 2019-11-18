@@ -17,8 +17,6 @@ import java.time.LocalDateTime;
   TODO May be shared
  */
 @Data
-@Entity
-@Table(name = "changes")
 public abstract class ChangeEntity {
 
   @Id
@@ -33,5 +31,8 @@ public abstract class ChangeEntity {
   @JoinColumn(name = "subject_id", referencedColumnName = "id")
   private SubjectEntity subjectEntity;
 
-  public abstract LocalDateTime getDateTime();
+  @ManyToOne
+  @JoinColumn(name = "lecturer_id", referencedColumnName = "id")
+  private LecturerEntity lecturerEntity;
+
 }

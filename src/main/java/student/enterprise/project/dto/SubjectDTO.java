@@ -1,25 +1,21 @@
-package student.enterprise.project.entity;
+package student.enterprise.project.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import student.enterprise.project.entity.ChangeEntity;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "subjects")
-public class SubjectEntity {
+public class SubjectDTO {
 
-    @OneToMany
-    @JoinColumn(name = "group_id", referencedColumnName = "id")
     private List<ChangeEntity> userRoleList;
 
-    @Column(name = "name")
     private String name;
+
 }

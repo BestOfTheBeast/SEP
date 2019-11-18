@@ -1,6 +1,7 @@
 package student.enterprise.project.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
@@ -39,12 +40,13 @@ public class GroupEntity {
   @JoinColumn(name = "group_id", referencedColumnName = "id")
   private List<ChangeEntity> changeList;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "visibility")
   private GroupVisibility visibility;
 
   @Convert(converter = LocalDateAttributeConverter.class)
-  @Column(name = "created", columnDefinition = "DATE")
-  private LocalDate created;
+  @Column(name = "created", columnDefinition = "TIMESTAMP")
+  private LocalDateTime created;
 
   public Boolean hasParent() {
     return Objects.nonNull(parentGroup);

@@ -15,7 +15,9 @@ public class UserPassword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "hash")
     private String hash;
 
+    @Column(name = "salt")
     private String salt;
 }
