@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import student.enterprise.project.entity.LecturerEntity;
-import student.enterprise.project.entity.LessonEntity;
-import student.enterprise.project.entity.SubjectEntity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,17 +17,17 @@ public class ChangeDTO {
 
     private Long id;
 
-    private LessonEntity lessonEntity;
+    private LessonDTO lessonDTO;
 
-    private SubjectEntity subjectEntity;
+    private SubjectDTO subjectDTO;
 
-    private LecturerEntity lecturerEntity;
+    private LecturerDTO lecturerDTO;
 
     private LocalDate date;
 
     public LocalDateTime getDateTime() {
-        return Objects.nonNull(date) && Objects.nonNull(getLessonEntity()) && Objects.nonNull(getLessonEntity().getTime())
-                ? LocalDateTime.of(date, getLessonEntity().getTime())
+        return Objects.nonNull(date) && Objects.nonNull(getLessonDTO()) && Objects.nonNull(getLessonDTO().getTime())
+                ? LocalDateTime.of(date, getLessonDTO().getTime())
                 : null;
     }
 }

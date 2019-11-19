@@ -16,9 +16,13 @@ import java.util.List;
 @Table(name = "subjects")
 public class SubjectEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @OneToMany
-    @JoinColumn(name = "group_id", referencedColumnName = "id")
-    private List<ChangeEntity> userRoleList;
+    @JoinColumn(name = "change_id", referencedColumnName = "id")
+    private List<ChangeEntity> changeList;
 
     @Column(name = "name")
     private String name;

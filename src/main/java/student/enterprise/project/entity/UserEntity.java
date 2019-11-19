@@ -31,10 +31,6 @@ public class UserEntity {
   @Column(name = "login")
   private String login;
 
-  @Email
-  @Column(name = "email")
-  private String email;
-
   @Column(name = "password")
   private UserPassword password;
 

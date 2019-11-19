@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import student.enterprise.project.dto.enums.LecturerDegree;
-import student.enterprise.project.entity.ChangeEntity;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class LecturerDTO {
 
     private Long id;
 
-    private List<ChangeEntity> lessonList;
+    private List<ChangeDTO> lessonList;
 
     private String name;
 

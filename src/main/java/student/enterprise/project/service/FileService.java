@@ -1,11 +1,11 @@
 package student.enterprise.project.service;
 
-import java.io.File;
-import java.nio.file.Path;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public interface FileService {
 
-    boolean saveFile(File file);
+    boolean saveFile(FileOutputStream stream, String path);
 
-    File getFile(Path path);
+    FileInputStream getFile(String path);
 }

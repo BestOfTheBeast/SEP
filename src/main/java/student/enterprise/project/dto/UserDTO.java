@@ -16,10 +16,8 @@ public class UserDTO {
 
     private Long id;
 
-    private List<UserGroupEntity> groupRoleList;
+    private List<GroupDTO> groupList;
 
     private String login;
-
-    private String email;
 
 }

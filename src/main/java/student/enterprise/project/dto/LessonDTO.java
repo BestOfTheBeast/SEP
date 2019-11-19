@@ -4,20 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import student.enterprise.project.entity.ChangeEntity;
 
-import java.util.List;
+import java.time.LocalTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectDTO {
+public class LessonDTO {
 
     private Long id;
 
-    private List<ChangeDTO> userRoleList;
+    private LocalTime time;
 
-    private String name;
+    private Integer number;
 
 }

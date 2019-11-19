@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import student.enterprise.project.dto.enums.GroupVisibility;
-import student.enterprise.project.entity.ChangeEntity;
-import student.enterprise.project.entity.GroupEntity;
 import student.enterprise.project.entity.UserGroupEntity;
 
 import java.time.LocalDateTime;
@@ -20,11 +18,11 @@ public class GroupDTO {
 
     private Long id;
 
-    private GroupEntity parentGroup;
+    private GroupDTO parentGroup;
 
-    private List<UserGroupEntity> userRoleList;
+    private List<UserDTO> userList;
 
-    private List<ChangeEntity> changeList;
+    private List<ChangeDTO> changeList;
 
     private GroupVisibility visibility;
 
