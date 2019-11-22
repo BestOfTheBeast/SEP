@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface RozkladKPI {
 
-    List<ChangeEntity> getLessons(String groupName);
-
     GroupEntity getDefaultGroup(String groupName);
 
 }

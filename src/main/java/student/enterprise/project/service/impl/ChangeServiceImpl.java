@@ -31,16 +31,7 @@ public class ChangeServiceImpl implements ChangeService {
             return Collections.singletonList(mapper.map(entity, ChangeDTO.class));
         } else if (entity instanceof RepeatableChangeEntity) {
             List<ChangeDTO> changeDTOList = new ArrayList<>();
-            for (LocalDate date = ((RepeatableChangeEntity) entity).getRepeatDate();
-                 date.isBefore(((RepeatableChangeEntity) entity).getEndDate());
-                 date = date.plusDays(((RepeatableChangeEntity) entity).getFrequency().getDays())) {
-                changeDTOList.add(new ChangeDTO(
-                        entity.getId(),
-                        entity.getLessonEntity(),
-                        entity.getSubjectEntity(),
-                        entity.getLecturerEntity(),
-                        date));
-            }
+            //TODO implement change entity converter
             return changeDTOList;
         }
         return Collections.emptyList();

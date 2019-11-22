@@ -19,9 +19,9 @@ public class ChangeDTO {
 
     private LessonDTO lessonDTO;
 
-    private SubjectDTO subjectDTO;
+    private Long subjectId;
 
-    private LecturerDTO lecturerDTO;
+    private Long lecturerId;
 
     private LocalDate date;
 

@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 /*
   Change entity that contains one change for one specific lesson.
-  TODO May be repeatable
   TODO May be shared
  */
 @Data
