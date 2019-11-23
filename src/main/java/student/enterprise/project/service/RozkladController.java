@@ -3,101 +3,70 @@ package student.enterprise.project.service;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import student.enterprise.project.dto.ChangeDTO;
-import student.enterprise.project.dto.GroupDefaultSchedule;
+import student.enterprise.project.dto.GroupDefaultScheduleDTO;
+
+
 
 public class RozkladController implements RozkladKPI{
 
+	
+	private HttpRequestSender r;
+	
+	private static RozkladController controller;
+	
+	private RozkladController() {
+		this.r = HttpRequestSender.get();
+	}
+	
+	public static RozkladController get() {
+		if(controller == null) {
+			controller = new RozkladController();
+		}
+		return controller;
+	}
+	
 	@Override
-	public GroupDefaultSchedule getDefaultGroup(String groupName) {
-		GroupDefaultSchedule schedule = new GroupDefaultSchedule();
-		
-		HttpRequestSender r = HttpRequestSender.get();
+	public GroupDefaultScheduleDTO getDefaultGroup(String groupName) {
+		GroupDefaultScheduleDTO schedule = new GroupDefaultScheduleDTO();
 		JSONObject o = r.sendGet("http://api.rozklad.org.ua/v2/groups/"+groupName+"/timetable");
 		String timestamp = o.get("timeStamp").toString();
-		schedule.setTimestamp(Long.parseLong(timestamp));
-		String data = o.get("data").toString();
-		
-		JSONParser parser = new JSONParser();
-		JSONObject dataJSON = new JSONObject();
-		try {
-		dataJSON = (JSONObject) parser.parse(data);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		String weeks = dataJSON.get("weeks").toString();
-		
-		parser = new JSONParser();
-		
+		schedule.setVERSION_TIMESTAMP(Long.parseLong(timestamp));
+		JSONObject dataJSON = (JSONObject)o.get("data");
 		//get JSONobject of all weeks
-		JSONObject weeksJSON = new JSONObject();
-		try {
-			weeksJSON = (JSONObject) parser.parse(weeks);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	
-		
+		JSONObject weeksJSON = (JSONObject)dataJSON.get("weeks");
 		//loop through all weeks
 		for(Object week : weeksJSON.keySet()) {
 			String weekKey = (String)week;
-			parser = new JSONParser();
-			
 			//get JSON object of single week
-			JSONObject weekJSON = new JSONObject();
-			try {
-				weekJSON = (JSONObject) parser.parse(weeksJSON.get(weekKey).toString());
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-			
+			JSONObject weekJSON = (JSONObject)weeksJSON.get(weekKey);
 			//get JSON object of days in week
-			JSONObject daysJSON = new JSONObject();
-			try {
-				daysJSON = (JSONObject) parser.parse(weekJSON.get("days").toString());
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-			
+			JSONObject daysJSON = (JSONObject)weekJSON.get("days");
 			//loop through all days in week
 			for(Object day : daysJSON.keySet()) {
 				String dayName = "";
 				int lessonNumber = 0;
-				Long dayNumber = 0L;
-				JSONObject dayJSON = new JSONObject();
-				try {
-					dayJSON = (JSONObject) parser.parse(daysJSON.get((String)day).toString());
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-				
+				int dayNumber = 0;
+				//create JSON day object
+				JSONObject dayJSON = (JSONObject)daysJSON.get((String)day);
 				dayName = (String)dayJSON.get("day_name");
-				dayNumber = (Long)dayJSON.get("day_number");
-				
-				JSONArray lessonsJSON = new JSONArray();
-				try {
-					lessonsJSON = (JSONArray) parser.parse(dayJSON.get("lessons").toString());
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
+				dayNumber = (Integer)dayJSON.get("day_number");
+				//create json array of lessons
+				JSONArray lessonsJSON = (JSONArray)dayJSON.get("lessons");
+				//loop through all lessons
 				for(Object lesson : lessonsJSON) {
+					//create new change dto for new lesson and fill it with parameters
 					ChangeDTO dayDTO = new ChangeDTO();
 					dayDTO.setDayName(dayName);
 					dayDTO.setDayNumber(dayNumber);
 					String lessonStr = lesson.toString();
-					JSONObject lessonJSON = new JSONObject();
-					try {
-						lessonJSON = (JSONObject) parser.parse(lessonStr);
-					}catch(Exception e) {
-						e.printStackTrace();
-					}
+					JSONObject lessonJSON = new JSONObject(lessonStr);
 					String lessonName = (String)lessonJSON.get("lesson_full_name");
-					dayDTO.setLessonName(lessonName);
+					dayDTO.setName(lessonName);
 					String timeStartStr = (String)lessonJSON.get("time_start");
 					LocalTime timeStart = LocalTime.parse(timeStartStr);
 					dayDTO.setLessonStartTime(timeStart);
@@ -108,13 +77,7 @@ public class RozkladController implements RozkladKPI{
 					dayDTO.setLessonNumber(lessonNumber);
 					Long lessonId = Long.parseLong((String)lessonJSON.get("lesson_id"));
 					dayDTO.setLessonId(lessonId);
-					
-					JSONArray roomsJSON = new JSONArray();
-					try {
-						roomsJSON = (JSONArray) parser.parse(lessonJSON.get("rooms").toString());
-					}catch(Exception e) {
-						e.printStackTrace();
-					}
+					JSONArray roomsJSON = (JSONArray)lessonJSON.get("rooms");
 					String roomNumberStr = "";
 					int buildingNumber = 0; 
 					try {
@@ -126,21 +89,14 @@ public class RozkladController implements RozkladKPI{
 					roomNumberStr = roomCode.split("-")[0];
 					String buildingNumberStr = roomCode.split("-")[1];
 					buildingNumber = Integer.parseInt(buildingNumberStr);
-					}catch(IndexOutOfBoundsException e) {
+					}catch(JSONException e) {
 						
 					}
 					dayDTO.setRoom(roomNumberStr);
 					dayDTO.setBuilding(buildingNumber);
-					JSONArray lectorsJSON = new JSONArray();
-					try {
-						lectorsJSON = (JSONArray) parser.parse(lessonJSON.get("teachers").toString());
-					}catch(Exception e) {
-						e.printStackTrace();
-					}
-					
+					JSONArray lectorsJSON = (JSONArray)lessonJSON.get("teachers");
 					try {
 					JSONObject lectorJSON = (JSONObject)lectorsJSON.get(0);
-					
 					String lecturerIdStr = (String)lectorJSON.get("teacher_id");
 					Long lecturerId = Long.parseLong(lecturerIdStr);
 					String lectorFullName = (String)lectorJSON.get("teacher_full_name");
@@ -148,13 +104,12 @@ public class RozkladController implements RozkladKPI{
 					String lectorName = lectorFullName.split(" ")[1];
 					String lectorSurname = lectorFullName.split(" ")[2];
 					String lectorSecondName = lectorFullName.split(" ")[3];
-					
 					dayDTO.setLecturerDegree(lectorDegreeStr);
 					dayDTO.setLecturerId(lecturerId);
 					dayDTO.setLecturerName(lectorName);
 					dayDTO.setLecturerSurname(lectorSurname);
 					dayDTO.setLecturerSecondName(lectorSecondName);
-					}catch(IndexOutOfBoundsException e) {
+					}catch(JSONException e) {
 						dayDTO.setLecturerId(0L);
 					}
 					schedule.changeLesson(dayDTO, dayConverter(dayName), lessonNumber);

@@ -19,34 +19,7 @@ public class LessonDTO {
 
     private Integer number;
     
-    public LocalTime getStartTime() {
-    	return this.timeStart;
-    }
-    public LocalTime getEndTime() {
-    	return this.timeEnd;
-    }
-	public LocalTime getTimeStart() {
-		return timeStart;
-	}
-	public void setTimeStart(LocalTime timeStart) {
-		this.timeStart = timeStart;
-	}
-	public LocalTime getTimeEnd() {
-		return timeEnd;
-	}
-	public void setTimeEnd(LocalTime timeEnd) {
-		this.timeEnd = timeEnd;
-	}
-	public Integer getNumber() {
-		return number;
-	}
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-	@Override
-	public String toString() {
-		return "LessonDTO [timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", number=" + number + "]";
-	}
+    
     
 
 }

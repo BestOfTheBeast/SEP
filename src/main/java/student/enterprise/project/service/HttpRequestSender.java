@@ -1,7 +1,5 @@
 package student.enterprise.project.service;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import springfox.documentation.spring.web.json.Json;
 
@@ -11,6 +9,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.json.JSONObject;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
@@ -42,16 +41,9 @@ public class HttpRequestSender {
 			HttpGet request = new HttpGet(uri);
 			//execute Http Request and store result in Http Response Object
 			CloseableHttpResponse response = this.httpClient.execute(request);
-			try {
-				//create parser and parse Http Response Body to JSONPbject
-				JSONParser parser = new JSONParser();
-				JSONresponse = (JSONObject) parser.parse(new BasicResponseHandler().handleResponse(response));
-			}catch(Exception e){
-				e.printStackTrace();
-				return null;
-			}finally {
-				response.close();	
-			}
+			//create parser and parse Http Response Body to JSONPbject
+			JSONresponse = new JSONObject(new BasicResponseHandler().handleResponse(response));
+			response.close();
 		}catch(IOException e) {
 			e.printStackTrace();
 			return null;
@@ -72,16 +64,9 @@ public class HttpRequestSender {
 					}
 					//execute Http Request and store result in Http Response Object
 					CloseableHttpResponse response = this.httpClient.execute(request);
-					try {
-						//create parser and parse Http Response Body to JSONPbject
-						JSONParser parser = new JSONParser();
-						JSONresponse = (JSONObject) parser.parse(new BasicResponseHandler().handleResponse(response));
-					}catch(Exception e){
-						e.printStackTrace();
-						return null;
-					}finally {
-						response.close();	
-					}
+					//create parser and parse Http Response Body to JSONPbject
+					JSONresponse = new JSONObject(new BasicResponseHandler().handleResponse(response));
+					response.close();
 				}catch(IOException e) {
 					e.printStackTrace();
 					return null;

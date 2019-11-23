@@ -60,45 +60,6 @@ public class LecturerDTO {
 		this.degree = ld;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getSecondName() {
-		return secondName;
-	}
-
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
-
-	public LecturerDegree getDegree() {
-		return degree;
-	}
-
-	public void setDegree(LecturerDegree degree) {
-		this.degree = degree;
-	}
 
 	public void setDegree(String degree) {
 		LecturerDegree ld = null;
@@ -125,11 +86,7 @@ public class LecturerDTO {
 		this.degree = ld;
 	}
 
-	@Override
-	public String toString() {
-		return "LecturerDTO [id=" + id + ", lessonList=" + lessonList + ", name=" + name + ", surname=" + surname
-				+ ", secondName=" + secondName + ", degree=" + degree + "]";
-	}
+
 	
 	
 

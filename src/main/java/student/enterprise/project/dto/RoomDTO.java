@@ -1,5 +1,12 @@
 package student.enterprise.project.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class RoomDTO {
 	Long id;
 	
@@ -7,34 +14,7 @@ public class RoomDTO {
 	    
 	int building;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getRoom() {
-		return room;
-	}
-
-	public void setRoom(String room) {
-		this.room = room;
-	}
-
-	public int getBuilding() {
-		return building;
-	}
-
-	public void setBuilding(int building) {
-		this.building = building;
-	}
-
-	@Override
-	public String toString() {
-		return "RoomDTO [id=" + id + ", room=" + room + ", building=" + building + "]";
-	}
+	
 	
 	
 }

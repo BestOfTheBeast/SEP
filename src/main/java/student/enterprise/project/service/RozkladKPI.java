@@ -1,12 +1,12 @@
 package student.enterprise.project.service;
 
 import java.util.List;
-import student.enterprise.project.dto.GroupDefaultSchedule;
+import student.enterprise.project.dto.GroupDefaultScheduleDTO;
 
 public interface RozkladKPI {
 
     //List<LessonDTO> getLessons(String groupName);
 
-	GroupDefaultSchedule getDefaultGroup(String groupName);
+	GroupDefaultScheduleDTO getDefaultGroup(String groupName);
 
 }

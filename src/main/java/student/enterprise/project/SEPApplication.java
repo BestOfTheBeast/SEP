@@ -1,23 +1,14 @@
-package student.enterprise;
+package student.enterprise.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import student.enterprise.project.dto.GroupDefaultSchedule;
-import student.enterprise.project.service.RozkladController;
 
 @SpringBootApplication
-public class SepApplication {
+public class SEPApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SepApplication.class, args);
-		
-		RozkladController rc = new RozkladController();
-		
-		GroupDefaultSchedule gds = rc.getDefaultGroup("³ò-81");
-		
-		gds.printSchedule();
-		
+		SpringApplication.run(SEPApplication.class, args);
 	}
 
 }
