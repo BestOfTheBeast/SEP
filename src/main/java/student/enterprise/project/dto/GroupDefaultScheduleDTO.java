@@ -1,7 +1,9 @@
 package student.enterprise.project.dto;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 public class GroupDefaultScheduleDTO {
-	private List<List<ChangeDTO>> days = new ArrayList<>();
+	private Map<DayOfWeek, List<ChangeDTO>> days = new HashMap<>();
 	
 	private Long VERSION_TIMESTAMP;
 	
@@ -20,7 +22,7 @@ public class GroupDefaultScheduleDTO {
 			for(int j=0; j<5; j++) {
 				lst.add(new ChangeDTO());
 			}
-			days.add(lst);
+			days.put(DayOfWeek.of(i+1), lst);
 		}
 	}
 	
@@ -28,8 +30,7 @@ public class GroupDefaultScheduleDTO {
 		if(lessonNumber==0) {
 			return;
 		}
-		int dayNumber = day.getValue();
-		days.get(dayNumber-1).set(lessonNumber-1, lesson);
+		days.get(day).set(lessonNumber-1, lesson);
 		
 	}
 	
@@ -39,7 +40,7 @@ public class GroupDefaultScheduleDTO {
 		System.out.println("Timestamp: "+this.VERSION_TIMESTAMP);
 		int dayN = 1;
 		int lessonN = 1;
-		for(List<ChangeDTO> day : days) {
+		for(List<ChangeDTO> day : days.values()) {
 			lessonN=1;
 			System.out.println("Day: "+dayN);
 			for(ChangeDTO lesson : day) {
