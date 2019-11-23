@@ -22,7 +22,13 @@ public class RepeatableChangeEntity extends ChangeEntity {
     @Column(name = "end_date", columnDefinition = "DATE")
     private LocalDate endDate;
 
-    @Column(name = "repeat_date")
-    private Short repeatDate;
+    /**
+     * Represents a 16 bit number in decimal system,
+     * where firs 14 bits are days of two week,
+     * the fourteenth and fifteenth bits should be always zero,
+     * and each 1 describe a presence of this change in that day.
+     */
+    @Column(name = "two_week_flag")
+    private Short twoWeekFlag;
 
 }
