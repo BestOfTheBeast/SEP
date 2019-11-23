@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 public class GroupDefaultScheduleDTO {
-	private Map<DayOfWeek, List<ChangeDTO>> days = new HashMap<>();
+	private Map<DayOfWeek, List<ChangeDTO>> schedule = new HashMap<>();
 	
 	private Long VERSION_TIMESTAMP;
 	
@@ -22,7 +22,7 @@ public class GroupDefaultScheduleDTO {
 			for(int j=0; j<5; j++) {
 				lst.add(new ChangeDTO());
 			}
-			days.put(DayOfWeek.of(i+1), lst);
+			schedule.put(DayOfWeek.of(i+1), lst);
 		}
 	}
 	
@@ -30,29 +30,8 @@ public class GroupDefaultScheduleDTO {
 		if(lessonNumber==0) {
 			return;
 		}
-		days.get(day).set(lessonNumber-1, lesson);
+		schedule.get(day).set(lessonNumber-1, lesson);
 		
 	}
-	
-	
-	
-	public void printSchedule() {
-		System.out.println("Timestamp: "+this.VERSION_TIMESTAMP);
-		int dayN = 1;
-		int lessonN = 1;
-		for(List<ChangeDTO> day : days.values()) {
-			lessonN=1;
-			System.out.println("Day: "+dayN);
-			for(ChangeDTO lesson : day) {
-				System.out.print(lessonN+".");
-				if(lesson.getLessonId()==null) {
-					System.out.println("No lesson");
-				}else
-				System.out.println(lesson);
-				lessonN++;
-			}
-			dayN++;
-		}
-	}
-	
+
 }

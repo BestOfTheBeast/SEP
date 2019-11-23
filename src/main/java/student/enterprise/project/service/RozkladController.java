@@ -9,6 +9,9 @@ import org.json.JSONObject;
 
 import student.enterprise.project.dto.ChangeDTO;
 import student.enterprise.project.dto.GroupDefaultScheduleDTO;
+import student.enterprise.project.dto.LecturerDTO;
+import student.enterprise.project.dto.LessonDTO;
+import student.enterprise.project.dto.RoomDTO;
 
 
 
@@ -61,6 +64,9 @@ public class RozkladController implements RozkladKPI{
 				for(Object lesson : lessonsJSON) {
 					//create new change dto for new lesson and fill it with parameters
 					ChangeDTO dayDTO = new ChangeDTO();
+					LessonDTO lessonDTO = new LessonDTO();
+					RoomDTO roomDTO = new RoomDTO();
+					LecturerDTO lecturerDTO = new LecturerDTO();
 					dayDTO.setDayName(dayName);
 					dayDTO.setDayNumber(dayNumber);
 					String lessonStr = lesson.toString();
@@ -69,14 +75,15 @@ public class RozkladController implements RozkladKPI{
 					dayDTO.setName(lessonName);
 					String timeStartStr = (String)lessonJSON.get("time_start");
 					LocalTime timeStart = LocalTime.parse(timeStartStr);
-					dayDTO.setLessonStartTime(timeStart);
+					lessonDTO.setTimeStart(timeStart);
 					String timeEndStr = (String)lessonJSON.get("time_end");
 					LocalTime timeEnd = LocalTime.parse(timeEndStr);
-					dayDTO.setLessonEndTime(timeEnd);
+					lessonDTO.setTimeEnd(timeEnd);
 					lessonNumber = Integer.parseInt((String)lessonJSON.get("lesson_number"));
-					dayDTO.setLessonNumber(lessonNumber);
+					lessonDTO.setNumber(lessonNumber);
 					Long lessonId = Long.parseLong((String)lessonJSON.get("lesson_id"));
 					dayDTO.setLessonId(lessonId);
+					dayDTO.setLessonDTO(lessonDTO);
 					JSONArray roomsJSON = (JSONArray)lessonJSON.get("rooms");
 					String roomNumberStr = "";
 					int buildingNumber = 0; 
@@ -84,7 +91,7 @@ public class RozkladController implements RozkladKPI{
 					JSONObject roomJSON = (JSONObject)roomsJSON.get(0);
 					String roomIdStr = (String)roomJSON.get("room_id");
 					Long roomId = Long.parseLong(roomIdStr);
-					dayDTO.setRoomId(roomId);
+					roomDTO.setId(roomId);
 					String roomCode = (String)roomJSON.get("room_name");
 					roomNumberStr = roomCode.split("-")[0];
 					String buildingNumberStr = roomCode.split("-")[1];
@@ -92,8 +99,9 @@ public class RozkladController implements RozkladKPI{
 					}catch(JSONException e) {
 						
 					}
-					dayDTO.setRoom(roomNumberStr);
-					dayDTO.setBuilding(buildingNumber);
+					roomDTO.setRoom(roomNumberStr);
+					roomDTO.setBuilding(buildingNumber);
+					dayDTO.setRoomDTO(roomDTO);
 					JSONArray lectorsJSON = (JSONArray)lessonJSON.get("teachers");
 					try {
 					JSONObject lectorJSON = (JSONObject)lectorsJSON.get(0);
@@ -104,14 +112,15 @@ public class RozkladController implements RozkladKPI{
 					String lectorName = lectorFullName.split(" ")[1];
 					String lectorSurname = lectorFullName.split(" ")[2];
 					String lectorSecondName = lectorFullName.split(" ")[3];
-					dayDTO.setLecturerDegree(lectorDegreeStr);
-					dayDTO.setLecturerId(lecturerId);
-					dayDTO.setLecturerName(lectorName);
-					dayDTO.setLecturerSurname(lectorSurname);
-					dayDTO.setLecturerSecondName(lectorSecondName);
+					lecturerDTO.setDegree(lectorDegreeStr);
+					lecturerDTO.setId(lecturerId);
+					lecturerDTO.setName(lectorName);
+					lecturerDTO.setSurname(lectorSurname);
+					lecturerDTO.setSecondName(lectorSecondName);
 					}catch(JSONException e) {
-						dayDTO.setLecturerId(0L);
+						lecturerDTO.setId(0L);
 					}
+					dayDTO.setLecturerDTO(lecturerDTO);
 					schedule.changeLesson(dayDTO, dayConverter(dayName), lessonNumber);
 				}
 			
