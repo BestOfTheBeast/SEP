@@ -13,10 +13,13 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class LessonDTO {
 
-    private Long id;
-
-    private LocalTime time;
+	private LocalTime timeStart;
+    
+    private LocalTime timeEnd;
 
     private Integer number;
+    
+    
+    
 
 }

@@ -1,12 +1,12 @@
 package student.enterprise.project.service;
 
-import student.enterprise.project.entity.ChangeEntity;
-import student.enterprise.project.entity.GroupEntity;
-
 import java.util.List;
+import student.enterprise.project.dto.GroupDefaultScheduleDTO;
 
 public interface RozkladKPI {
 
-    GroupEntity getDefaultGroup(String groupName);
+    //List<LessonDTO> getLessons(String groupName);
+
+	GroupDefaultScheduleDTO getDefaultGroup(String groupName);
 
 }

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import student.enterprise.project.entity.ChangeEntity;
 
 import java.util.List;
 
@@ -19,5 +18,9 @@ public class SubjectDTO {
     private List<ChangeDTO> userRoleList;
 
     private String name;
+
+	
+    
+    
 
 }

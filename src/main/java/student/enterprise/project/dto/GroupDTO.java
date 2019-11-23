@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import student.enterprise.project.dto.enums.GroupVisibility;
-import student.enterprise.project.entity.UserGroupEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
