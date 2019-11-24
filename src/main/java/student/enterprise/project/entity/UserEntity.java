@@ -2,13 +2,9 @@ package student.enterprise.project.entity;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +27,12 @@ public class UserEntity {
   @OneToMany
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private List<UserGroupEntity> groupRoleList;
+
+  @Column(name = "login")
+  private String login;
+
+  @Column(name = "password")
+  private UserPassword password;
 
   public List<GroupEntity> getGroupList(){
     return groupRoleList.stream()
