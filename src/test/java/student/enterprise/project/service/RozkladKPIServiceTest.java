@@ -16,10 +16,7 @@ public class RozkladKPIServiceTest {
     @Test
     public void getGroupTest() throws IOException {
         RestTemplate template = new RestTemplate();
-        ResponseEntity<String> responseEntity = template.getForEntity("https://api.rozklad.org.ua/v2/groups/ia-83/timetable", String.class);
-        JsonNode jsonObject = new ObjectMapper().readTree(responseEntity.getBody());
         ResponseKpiDTO responseObject = template.getForObject("https://api.rozklad.org.ua/v2/groups/ia-83/timetable", ResponseKpiDTO.class);
-//        JSONObject jsonObject = new JSONObject(responseEntity);
     }
 
 }

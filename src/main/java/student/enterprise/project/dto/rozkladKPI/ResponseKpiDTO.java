@@ -19,6 +19,6 @@ public class ResponseKpiDTO {
     private String message;
     private Integer statusCode;
     @JsonProperty("data")
-    private GroupData data;
+    private KpiTimetableDTO data;
 
 }

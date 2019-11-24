@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RozkladKpiGroupDTO {
+public class KpiGroupDTO {
 
     private Long group_id;
 
