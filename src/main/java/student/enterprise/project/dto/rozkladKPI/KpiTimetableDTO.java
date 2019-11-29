@@ -15,8 +15,6 @@ public class KpiTimetableDTO {
   @JsonProperty("group")
   private KpiGroupDTO group;
 
-  //TODO replace this parameter by corresponding DTO
   @JsonProperty("weeks")
-  //private JsonNode weeks;
   private KpiTwoWeekScheduleDTO weeks;
 }
