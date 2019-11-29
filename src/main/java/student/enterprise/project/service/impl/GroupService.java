@@ -18,7 +18,7 @@ import student.enterprise.project.service.ChangeService;
 @RequiredArgsConstructor
 public class GroupService {
 
-    private ChangeService changeService;
+  private ChangeService changeService;
 
   private final GroupRepository groupRepository;
 

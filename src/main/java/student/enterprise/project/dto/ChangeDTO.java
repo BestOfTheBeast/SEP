@@ -30,4 +30,5 @@ public class ChangeDTO {
                 ? LocalDateTime.of(date, getLessonDTO().getTime())
                 : null;
     }
+
 }
