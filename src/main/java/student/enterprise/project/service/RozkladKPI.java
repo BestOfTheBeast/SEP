@@ -1,13 +1,16 @@
 package student.enterprise.project.service;
 
-import student.enterprise.project.dto.GroupDTO;
-import student.enterprise.project.entity.ChangeEntity;
-import student.enterprise.project.entity.GroupEntity;
+import student.enterprise.project.dto.rozkladKPI.KpiGroupDTO;
+import student.enterprise.project.dto.rozkladKPI.KpiTimetableDTO;
 
 import java.util.List;
 
 public interface RozkladKPI {
 
-    GroupDTO getDefaultGroup(String groupName);
+    KpiTimetableDTO getGroupTimetable(String groupName);
+
+    KpiTimetableDTO getGroupTimetable(Long groupId);
+
+    List<KpiGroupDTO> getAllGroups();
 
 }
