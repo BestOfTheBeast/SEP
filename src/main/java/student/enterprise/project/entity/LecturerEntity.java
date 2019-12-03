@@ -1,13 +1,18 @@
 package student.enterprise.project.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import student.enterprise.project.dto.enums.LecturerDegree;
-
-import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Builder
@@ -20,10 +25,6 @@ public class LecturerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany
-    @JoinColumn(name = "lecturer_id", referencedColumnName = "id")
-    private List<ChangeEntity> lessonList;
 
     @Column(name = "name")
     private String name;
