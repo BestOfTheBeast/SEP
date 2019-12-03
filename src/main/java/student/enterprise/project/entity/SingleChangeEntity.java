@@ -1,22 +1,24 @@
 package student.enterprise.project.entity;
 
-import lombok.*;
-import student.enterprise.project.converter.jpa.LocalDateAttributeConverter;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import student.enterprise.project.converter.jpa.LocalDateAttributeConverter;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "single_changes")
+@Table(name = "repeatable_changes_view")
 public class SingleChangeEntity extends ChangeEntity {
 
     @Convert(converter = LocalDateAttributeConverter.class)
