@@ -18,7 +18,7 @@ import student.enterprise.project.converter.jpa.LocalDateAttributeConverter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "repeatable_changes_view")
+@Table(name = "single_changes_view")
 public class SingleChangeEntity extends ChangeEntity {
 
     @Convert(converter = LocalDateAttributeConverter.class)
