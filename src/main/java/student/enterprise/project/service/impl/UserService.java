@@ -2,6 +2,7 @@ package student.enterprise.project.service.impl;
 
 import student.enterprise.project.dto.UserDTO;
 
+@Service
 public class UserService {
 
   UserDTO userDTO;
@@ -31,6 +32,10 @@ public class UserService {
 
   public void save(UserDTO user) {
     //Сохраняем нашего user в DataBase
+  }
+
+  public void findById(UserDTO user) {
+    //Находим user
   }
 
 }
