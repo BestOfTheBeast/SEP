@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import student.enterprise.project.entity.UserGroupEntity;
-
-import java.util.List;
 
 @Data
 @Builder
@@ -15,8 +12,6 @@ import java.util.List;
 public class UserDTO {
 
     private Long id;
-
-    private List<GroupDTO> groupList;
 
     private String login;
 
