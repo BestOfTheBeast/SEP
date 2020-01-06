@@ -1,5 +1,6 @@
 package student.enterprise.project.service.impl;
 
+import org.springframework.stereotype.Service;
 import student.enterprise.project.dto.UserDTO;
 
 @Service
@@ -20,22 +21,20 @@ public class UserService {
     }
   }
 
-  public UserDTO getUser(long userID) {
-    //for( : ) {
-    // ..................
-    // Цикл, который перебирает объекты
-    if (userDTO.getId() == userID) {
-      return userDTO;
-    }
-    return null;
-  }
-
   public void save(UserDTO user) {
     //Сохраняем нашего user в DataBase
   }
 
-  public void findById(UserDTO user) {
-    //Находим user
+  public UserDTO findById(long userID) {
+
+    //for( : ) {
+    // ..................
+    // Цикл, который перебирает объекты
+    if (userDTO.getId().equals(userID)) {
+      return userDTO;
+
+    }
+    return null;
   }
 
 }
