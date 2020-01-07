@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import student.enterprise.project.dto.UserDTO;
 import student.enterprise.project.service.impl.UserService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -17,13 +19,21 @@ public class UserController {
   }
 
   @DeleteMapping("/user/{id}")
-  void deleteEmployee(@PathVariable Long id) {
+  void deleteUser(@PathVariable Long id) {
     userService.deleteUser(id);
   }
 
   @PutMapping("/users/{id}")
-  UserDTO putUser(@RequestBody UserDTO newUserDTO, @PathVariable Long id) {
+  void putUser(@PathVariable Long id) { userService.updateUser(id); }
 
-    return userService.findById(id);
+  @RequestMapping(value = "/insert", method = RequestMethod.POST)
+  void insert(UserDTO userDTO) { userService.save(userDTO); }
+
+  @PostMapping("/user/{id}")
+  void create(@PathVariable Long id, @PathVariable String login){ userService.create(id, login); }
+
+  @GetMapping
+  List<UserDTO> getAll() {
+    return userService.getAll();
   }
 }
