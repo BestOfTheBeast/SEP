@@ -13,36 +13,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-  private UserRepository repository;
-  private UserConverter converter;
+  private UserRepository userRepository;
+  private UserConverter userConverter;
 
   public UserDTO updateUser(UserDTO userToUpdate) {
-    UserEntity userEntity = repository.getOne(userToUpdate.getId());
+    UserEntity userEntity = userRepository.findById(userToUpdate.getId()).orElseThrow(() -> new NullPointerException());
     userEntity.setLogin(userToUpdate.getLogin());
-    repository.save(userEntity);
-    return converter.toDto(userEntity);
+    userRepository.save(userEntity);
+    return userConverter.toDto(userRepository.save(userEntity));
   }
 
   public List<UserDTO> getAll() {
-    List<UserEntity> usersEntity = repository.findAll();
-    return converter.toDto(usersEntity);
+    List<UserEntity> userEntityList = userRepository.findAll();
+    return userConverter.toDto(userEntityList);
   }
 
   public void deleteUser(long userID) {
-    if (!repository.findById(userID).isPresent()) {
+    if (userRepository.findById(userID).isPresent()) {
       throw new NullPointerException();
     }
-    repository.deleteById(userID);
+    userRepository.deleteById(userID);
   }
 
   public UserDTO save(UserDTO user) {
-    UserEntity userEntity = repository.save(converter.toEntity(user));
-    return converter.toDto(userEntity);
+    UserEntity userEntity = userRepository.save(userConverter.toEntity(user));
+    return userConverter.toDto(userEntity);
   }
 
   public UserDTO findById(long userID) {
-    UserEntity userEntity = repository.findById(userID).orElseThrow(() -> new NullPointerException());
-    return converter.toDto(userEntity);
+    UserEntity userEntity = userRepository.findById(userID).orElseThrow(() -> new NullPointerException());
+    return userConverter.toDto(userEntity);
   }
 
 }
