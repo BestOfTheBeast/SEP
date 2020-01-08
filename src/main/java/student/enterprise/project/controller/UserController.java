@@ -9,28 +9,24 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class UserController {
 
   private final UserService userService;
 
-  @GetMapping
-  UserDTO get(long userId) {
-    return userService.findById(userId);
-  }
+  @GetMapping("{id}")
+  UserDTO get(@PathVariable Long userId)  { return userService.findById(userId); }
 
-  @DeleteMapping("/user/{id}")
+  @DeleteMapping("{id}")
   void deleteUser(@PathVariable Long id) {
     userService.deleteUser(id);
   }
 
-  @PutMapping("/users/{id}")
-  void putUser(@PathVariable Long id) { userService.updateUser(id); }
+  @PutMapping
+  UserDTO updateUser(@RequestBody UserDTO userToUpdate) { return userService.updateUser(userToUpdate); }
 
-  @RequestMapping(value = "/insert", method = RequestMethod.POST)
-  void insert(UserDTO userDTO) { userService.save(userDTO); }
-
-  @PostMapping("/user/{id}")
-  void create(@PathVariable Long id, @PathVariable String login){ userService.create(id, login); }
+  @PostMapping("{id}")
+  void create(@RequestBody UserDTO newUserDTO){ userService.save(newUserDTO); }
 
   @GetMapping
   List<UserDTO> getAll() {
