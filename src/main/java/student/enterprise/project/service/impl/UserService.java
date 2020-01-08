@@ -18,6 +18,7 @@ public class UserService {
 
   public UserDTO updateUser(UserDTO userToUpdate) {
     UserEntity userEntity = repository.getOne(userToUpdate.getId());
+    userEntity.setLogin(userToUpdate.getLogin());
     repository.save(userEntity);
     return converter.toDto(userEntity);
   }
@@ -28,7 +29,7 @@ public class UserService {
   }
 
   public void deleteUser(long userID) {
-    if (repository.findById(userID).isPresent()) {
+    if (!repository.findById(userID).isPresent()) {
       throw new NullPointerException();
     }
     repository.deleteById(userID);
