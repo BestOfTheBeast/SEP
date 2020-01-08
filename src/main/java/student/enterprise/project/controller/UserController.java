@@ -26,7 +26,7 @@ public class UserController {
   UserDTO updateUser(@RequestBody UserDTO userToUpdate) { return userService.updateUser(userToUpdate); }
 
   @PostMapping("{id}")
-  void create(@RequestBody UserDTO newUserDTO){ userService.save(newUserDTO); }
+  UserDTO create(@RequestBody UserDTO newUserDTO){ return userService.save(newUserDTO); }
 
   @GetMapping
   List<UserDTO> getAll() {

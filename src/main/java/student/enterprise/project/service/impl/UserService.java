@@ -34,8 +34,9 @@ public class UserService {
     repository.deleteById(userID);
   }
 
-  public void save(UserDTO user) {
-    repository.save(converter.toEntity(user));
+  public UserDTO save(UserDTO user) {
+    UserEntity userEntity = repository.save(converter.toEntity(user));
+    return converter.toDto(userEntity);
   }
 
   public UserDTO findById(long userID) {
