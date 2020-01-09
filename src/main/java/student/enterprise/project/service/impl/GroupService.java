@@ -32,30 +32,30 @@ public class GroupService {
     if (Objects.isNull(groupEntity) || CollectionUtils.isEmpty(groupEntity.getChangeList())) {
       return;
     }
-    groupEntity.getChangeList().parallelStream()
-            .map(change -> changeConverter.toDto(change))
-            .forEach(change -> changeMap.put(change.getDateTime(), change));
+      groupEntity.getChangeList().parallelStream()
+              .map(change -> changeConverter.toDto(change))
+              .forEach(change -> changeMap.put(change.getDateTime(), change));
     if (groupEntity.hasParent()) {
       putAllChangesRecursive(groupEntity.getParentGroup(), changeMap);
     }
   }
 
   public boolean delete(long id){
-    if (Objects.isNull(id) ) {
+    if (Objects.nonNull(id) ) {
       groupRepository.deleteById(id);
       return true;
     }
     return false;
   }
 
-  public void save(GroupEntity groupEntity){
-    if (!Objects.isNull(groupEntity) ) {
-      groupRepository.save(groupEntity);
+  public void save(GroupDTO groupDTO){
+    if (!Objects.nonNull(groupDTO) ) {
+      groupRepository.save(groupConverter.toEntity(groupDTO));
     }
   }
 
   public GroupDTO getGroup(long id) {
-    if (Objects.isNull(id) ) {
+    if (Objects.nonNull(id) ) {
       throw new NullPointerException();
     }
     GroupEntity groupEntity = groupRepository.findById(id)
@@ -64,7 +64,7 @@ public class GroupService {
   }
 
   public boolean update(GroupDTO groupDTO){
-    if (!Objects.isNull(groupDTO) ) {
+    if (!Objects.nonNull(groupDTO) ) {
       GroupEntity groupEntity = groupConverter.toEntity(groupDTO);
       groupRepository.getOne(groupDTO.getId()).setChangeList(groupEntity.getChangeList());
       groupRepository.getOne(groupDTO.getId()).setCreated(groupEntity.getCreated());
@@ -77,4 +77,3 @@ public class GroupService {
   }
 
 }
-
