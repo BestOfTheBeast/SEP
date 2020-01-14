@@ -20,4 +20,11 @@ public class ChangeServiceImpl implements ChangeService {
     return Arrays.stream(changeConverter.toDto(entity))
         .collect(Collectors.toList());
   }
+
+  @Override
+  public List<ChangeDTO> toDto(List<ChangeEntity> entityList) {
+    return entityList.stream()
+        .flatMap(entity -> this.toDto(entity).stream())
+        .collect(Collectors.toList());
+  }
 }
