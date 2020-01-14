@@ -1,20 +1,19 @@
 package student.enterprise.project.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import student.enterprise.project.converter.impl.UserConverter;
+import student.enterprise.project.converter.impl.UserEntityConverter;
 import student.enterprise.project.dto.UserDTO;
 import student.enterprise.project.entity.UserEntity;
 import student.enterprise.project.repository.UserRepository;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
   private UserRepository repository;
-  private UserConverter converter;
+  private UserEntityConverter converter;
 
   public UserDTO updateUser(UserDTO userToUpdate) {
     UserEntity userEntity = repository.getOne(userToUpdate.getId());

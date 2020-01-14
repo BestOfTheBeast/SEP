@@ -2,7 +2,7 @@ package student.enterprise.project.converter.impl;
 
 import java.util.Objects;
 import org.modelmapper.ModelMapper;
-import student.enterprise.project.converter.AbstractConverter;
+import student.enterprise.project.converter.AbstractEntityConverter;
 import student.enterprise.project.converter.Converter;
 import student.enterprise.project.dto.ChangeDTO;
 import student.enterprise.project.entity.ChangeEntity;
@@ -10,15 +10,15 @@ import student.enterprise.project.entity.RepeatableChangeEntity;
 import student.enterprise.project.entity.SingleChangeEntity;
 
 @Converter
-public class ChangeConverter extends AbstractConverter<ChangeEntity, ChangeDTO[]> {
+public class ChangeEntityConverter extends AbstractEntityConverter<ChangeEntity, ChangeDTO[]> {
 
-  private final RepeatableChangeConverter repeatableChangeConverter;
-  private final SingleChangeConverter singleChangeConverter;
+  private final RepeatableChangeEntityConverter repeatableChangeConverter;
+  private final SingleChangeEntityConverter singleChangeConverter;
 
-  public ChangeConverter(ModelMapper mapper,
-      RepeatableChangeConverter repeatableChangeConverter,
-      SingleChangeConverter singleChangeConverter) {
-    super(ChangeEntity.class, ChangeDTO[].class, mapper);
+  public ChangeEntityConverter(ModelMapper mapper,
+      RepeatableChangeEntityConverter repeatableChangeConverter,
+      SingleChangeEntityConverter singleChangeConverter) {
+    super(ChangeDTO[].class, mapper);
     this.repeatableChangeConverter = repeatableChangeConverter;
     this.singleChangeConverter = singleChangeConverter;
   }

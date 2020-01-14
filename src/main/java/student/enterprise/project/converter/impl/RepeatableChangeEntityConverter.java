@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
-import student.enterprise.project.converter.AbstractConverter;
+import student.enterprise.project.converter.AbstractEntityConverter;
 import student.enterprise.project.converter.Converter;
 import student.enterprise.project.dto.ChangeDTO;
 import student.enterprise.project.entity.LecturerEntity;
@@ -15,13 +15,13 @@ import student.enterprise.project.utils.DateUtil;
 import student.enterprise.project.utils.NumberUtil;
 
 @Converter
-public class RepeatableChangeConverter extends AbstractConverter<RepeatableChangeEntity, ChangeDTO[]> {
+public class RepeatableChangeEntityConverter extends AbstractEntityConverter<RepeatableChangeEntity, ChangeDTO[]> {
 
-  private final LessonConverter lessonConverter;
+  private final LessonEntityConverter lessonConverter;
 
-  public RepeatableChangeConverter(ModelMapper mapper,
-      LessonConverter lessonConverter) {
-    super(RepeatableChangeEntity.class, ChangeDTO[].class, mapper);
+  public RepeatableChangeEntityConverter(ModelMapper mapper,
+      LessonEntityConverter lessonConverter) {
+    super(ChangeDTO[].class, mapper);
     this.lessonConverter = lessonConverter;
   }
 
