@@ -1,47 +1,51 @@
 package student.enterprise.project.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import student.enterprise.project.converter.impl.UserConverter;
 import student.enterprise.project.dto.UserDTO;
 import student.enterprise.project.entity.UserEntity;
 import student.enterprise.project.repository.UserRepository;
+import student.enterprise.project.service.CRUDService;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements CRUDService<UserDTO> {
 
   private UserRepository repository;
   private UserConverter converter;
 
-  public UserDTO updateUser(UserDTO userToUpdate) {
+  @Override
+  public UserDTO update(UserDTO userToUpdate) {
     UserEntity userEntity = repository.getOne(userToUpdate.getId());
     userEntity.setLogin(userToUpdate.getLogin());
     repository.save(userEntity);
     return converter.toDto(userEntity);
   }
 
+  @Override
   public List<UserDTO> getAll() {
     List<UserEntity> usersEntity = repository.findAll();
     return converter.toDto(usersEntity);
   }
 
-  public void deleteUser(long userID) {
+  @Override
+  public void delete(Long userID) {
     if (!repository.findById(userID).isPresent()) {
       throw new NullPointerException();
     }
     repository.deleteById(userID);
   }
 
-  public UserDTO save(UserDTO user) {
+  @Override
+  public UserDTO create(UserDTO user) {
     UserEntity userEntity = repository.save(converter.toEntity(user));
     return converter.toDto(userEntity);
   }
 
-  public UserDTO findById(long userID) {
-    UserEntity userEntity = repository.findById(userID).orElseThrow(() -> new NullPointerException());
+  @Override
+  public UserDTO get(Long userID) {
+    UserEntity userEntity = repository.findById(userID).orElseThrow(NullPointerException::new);
     return converter.toDto(userEntity);
   }
 
