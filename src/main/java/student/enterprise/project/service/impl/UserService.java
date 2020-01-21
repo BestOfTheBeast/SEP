@@ -1,32 +1,31 @@
 package student.enterprise.project.service.impl;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import student.enterprise.project.converter.impl.UserDtoConverter;
-import student.enterprise.project.converter.impl.UserEntityConverter;
+import student.enterprise.project.converter.impl.UserConverter;
 import student.enterprise.project.dto.UserDTO;
 import student.enterprise.project.entity.UserEntity;
 import student.enterprise.project.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
   private UserRepository repository;
-  private UserEntityConverter userEntityConverter;
-  private UserDtoConverter userDtoConverter;
+  private UserConverter converter;
 
   public UserDTO updateUser(UserDTO userToUpdate) {
     UserEntity userEntity = repository.getOne(userToUpdate.getId());
     userEntity.setLogin(userToUpdate.getLogin());
     repository.save(userEntity);
-    return userEntityConverter.toDto(userEntity);
+    return converter.toDto(userEntity);
   }
 
   public List<UserDTO> getAll() {
     List<UserEntity> usersEntity = repository.findAll();
-    return userEntityConverter.toDto(usersEntity);
+    return converter.toDto(usersEntity);
   }
 
   public void deleteUser(long userID) {
@@ -37,13 +36,13 @@ public class UserService {
   }
 
   public UserDTO save(UserDTO user) {
-    UserEntity userEntity = repository.save(userDtoConverter.toEntity(user));
-    return userEntityConverter.toDto(userEntity);
+    UserEntity userEntity = repository.save(converter.toEntity(user));
+    return converter.toDto(userEntity);
   }
 
   public UserDTO findById(long userID) {
     UserEntity userEntity = repository.findById(userID).orElseThrow(() -> new NullPointerException());
-    return userEntityConverter.toDto(userEntity);
+    return converter.toDto(userEntity);
   }
 
 }
