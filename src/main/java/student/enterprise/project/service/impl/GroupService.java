@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import student.enterprise.project.dto.ChangeDTO;
 import student.enterprise.project.dto.GroupDTO;
 import student.enterprise.project.entity.GroupEntity;
 import student.enterprise.project.repository.GroupRepository;
 import student.enterprise.project.service.CRUDService;
 
+@Service
 @RequiredArgsConstructor
 public class GroupService implements CRUDService<GroupDTO>{
 

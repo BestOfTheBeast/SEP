@@ -2,11 +2,13 @@ package student.enterprise.project.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 import student.enterprise.project.dto.ChangeDTO;
 import student.enterprise.project.service.CRUDService;
 
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class ChangeService implements CRUDService<ChangeDTO> {
 
