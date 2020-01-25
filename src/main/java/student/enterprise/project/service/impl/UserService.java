@@ -14,9 +14,9 @@ import student.enterprise.project.service.CRUDService;
 @RequiredArgsConstructor
 public class UserService implements CRUDService<UserDTO> {
 
-  private UserRepository repository;
-  private UserEntityConverter userEntityConverter;
-  private UserDtoConverter userDtoConverter;
+  private final UserRepository repository;
+  private final UserEntityConverter userEntityConverter;
+  private final UserDtoConverter userDtoConverter;
 
   @Override
   public UserDTO update(UserDTO userToUpdate) {
