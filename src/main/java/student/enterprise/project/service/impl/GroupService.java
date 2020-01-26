@@ -10,13 +10,14 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import student.enterprise.project.dto.ChangeDTO;
+import student.enterprise.project.dto.GroupDTO;
 import student.enterprise.project.entity.GroupEntity;
 import student.enterprise.project.repository.GroupRepository;
-import student.enterprise.project.service.ChangeService;
+import student.enterprise.project.service.CRUDService;
 
 @Service
 @RequiredArgsConstructor
-public class GroupService {
+public class GroupService implements CRUDService<GroupDTO>{
 
   private ChangeService changeService;
 
@@ -44,4 +45,32 @@ public class GroupService {
 //    }
   }
 
+  @Override
+  public GroupDTO create(GroupDTO groupDTO) {
+    //TODO implement service method
+    return null;
+  }
+
+  @Override
+  public GroupDTO get(long id) {
+    //TODO implement service method
+    return null;
+  }
+
+  @Override
+  public List<GroupDTO> getAll() {
+    //TODO implement service method
+    return null;
+  }
+
+  @Override
+  public GroupDTO update(GroupDTO groupDTO) {
+    //TODO implement service method
+    return null;
+  }
+
+  @Override
+  public void delete(long id) {
+    //TODO implement service method
+  }
 }

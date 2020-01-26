@@ -8,40 +8,46 @@ import student.enterprise.project.converter.impl.UserEntityConverter;
 import student.enterprise.project.dto.UserDTO;
 import student.enterprise.project.entity.UserEntity;
 import student.enterprise.project.repository.UserRepository;
+import student.enterprise.project.service.CRUDService;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements CRUDService<UserDTO> {
 
-  private UserRepository repository;
-  private UserEntityConverter userEntityConverter;
-  private UserDtoConverter userDtoConverter;
+  private final UserRepository repository;
+  private final UserEntityConverter userEntityConverter;
+  private final UserDtoConverter userDtoConverter;
 
-  public UserDTO updateUser(UserDTO userToUpdate) {
+  @Override
+  public UserDTO update(UserDTO userToUpdate) {
     UserEntity userEntity = repository.getOne(userToUpdate.getId());
     userEntity.setLogin(userToUpdate.getLogin());
     repository.save(userEntity);
     return userEntityConverter.toDto(userEntity);
   }
 
+  @Override
   public List<UserDTO> getAll() {
     List<UserEntity> usersEntity = repository.findAll();
     return userEntityConverter.toDto(usersEntity);
   }
 
-  public void deleteUser(long userID) {
+  @Override
+  public void delete(long userID) {
     if (!repository.findById(userID).isPresent()) {
       throw new NullPointerException();
     }
     repository.deleteById(userID);
   }
 
-  public UserDTO save(UserDTO user) {
+  @Override
+  public UserDTO create(UserDTO user) {
     UserEntity userEntity = repository.save(userDtoConverter.toEntity(user));
     return userEntityConverter.toDto(userEntity);
   }
 
-  public UserDTO findById(long userID) {
+  @Override
+  public UserDTO get(long userID) {
     UserEntity userEntity = repository.findById(userID).orElseThrow(() -> new NullPointerException());
     return userEntityConverter.toDto(userEntity);
   }
