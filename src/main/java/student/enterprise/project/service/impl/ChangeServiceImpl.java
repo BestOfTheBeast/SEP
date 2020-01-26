@@ -19,9 +19,6 @@ import java.util.Objects;
 public class ChangeServiceImpl implements ChangeService {
 
     private final ModelMapper mapper;
-    private SingleChangeRepository singleChangeRepository;
-    private RepeatableChangeRepository repeatableChangeRepository;
-    private SingleChangeConverter singleChangeConverter;
 
     public ChangeServiceImpl(ModelMapper mapper) {
         this.mapper = mapper;
@@ -40,33 +37,5 @@ public class ChangeServiceImpl implements ChangeService {
             return changeDTOList;
         }
         return Collections.emptyList();
-    }
-
-    public ChangeDTO findById(Long id) {
-        SingleChangeEntity singleChangeEntity = singleChangeRepository.findById(id).orElseThrow(() -> new NullPointerException());
-        return singleChangeConverter.toDto(singleChangeEntity);
-    }
-
-    public ChangeDTO save(ChangeDTO changeDTO) {
-        SingleChangeEntity singleChangeEntity = singleChangeRepository.save(singleChangeConverter.toEntity(changeDTO));
-        return singleChangeConverter.toDto(singleChangeEntity);
-    }
-
-    //public void update(ChangeDTO changeDTO) {
-    //
-    //}
-
-    public boolean delete(Long id) {
-        if (!singleChangeRepository.findById(id).isPresent()) {
-            return false;
-        } else {
-            singleChangeRepository.deleteById(id);
-            return true;
-        }
-    }
-
-    public List<ChangeDTO> getAll() {
-        List<SingleChangeEntity> userEntityList = singleChangeRepository.findAll();
-        return singleChangeConverter.toDto(userEntityList);
     }
 }
