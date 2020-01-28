@@ -65,12 +65,13 @@ public class GroupService {
 
   public boolean update(GroupDTO groupDTO){
     if (!Objects.nonNull(groupDTO) ) {
-      GroupEntity groupEntity = groupConverter.toEntity(groupDTO);
-      groupRepository.getOne(groupDTO.getId()).setChangeList(groupEntity.getChangeList());
-      groupRepository.getOne(groupDTO.getId()).setCreated(groupEntity.getCreated());
-      groupRepository.getOne(groupDTO.getId()).setParentGroup(groupEntity.getParentGroup());
-      groupRepository.getOne(groupDTO.getId()).setUserRoleList(groupEntity.getUserRoleList());
-      groupRepository.getOne(groupDTO.getId()).setVisibility(groupEntity.getVisibility());
+      GroupEntity groupEntity = groupRepository.getOne(groupDTO.getId());
+      groupEntity.setChangeList(groupEntity.getChangeList());
+      groupEntity.setCreated(groupEntity.getCreated());
+      groupEntity.setParentGroup(groupEntity.getParentGroup());
+      groupEntity.setUserRoleList(groupEntity.getUserRoleList());
+      groupEntity.setVisibility(groupEntity.getVisibility());
+      groupRepository.save(groupEntity);  
       return true;
     }
     return false;

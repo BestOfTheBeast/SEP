@@ -11,28 +11,27 @@ import student.enterprise.project.service.impl.GroupService;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("groups")
+@RequestMapping("/groups")
 public class GroupController {
     private final GroupService groupService ;
 
     @RequestMapping(value="/insert",method = RequestMethod.POST)
-    public void insert(GroupDTO groupDTO ){
+    public void insert(@RequestBody GroupDTO groupDTO ){
         groupService.save(groupDTO);
     }
 
-    @RequestMapping(value="/get", method = RequestMethod.GET)
+    @RequestMapping(value="/get/{id}",  produces = "application/json", method = RequestMethod.GET)
     public GroupDTO get(@PathVariable long id){
         return groupService.getGroup(id);
     }
 
-    @RequestMapping(value="/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
     public boolean  delete(@PathVariable long id){
         return groupService.delete(id);
     }
 
     @RequestMapping(value="/update", method = RequestMethod.PUT)
-    public boolean update(GroupDTO groupDTO){
+    public boolean update(@RequestBody GroupDTO groupDTO){
         return groupService.update(groupDTO);
     }
-
 }
