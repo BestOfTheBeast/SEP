@@ -3,11 +3,14 @@ package student.enterprise.project.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import student.enterprise.project.converter.impl.LessonConverter;
 import student.enterprise.project.converter.impl.SingleChangeConverter;
 import student.enterprise.project.dto.ChangeDTO;
 import student.enterprise.project.entity.SingleChangeEntity;
+import student.enterprise.project.repository.LecturerRepository;
 import student.enterprise.project.repository.RepeatableChangeRepository;
 import student.enterprise.project.repository.SingleChangeRepository;
+import student.enterprise.project.repository.SubjectRepository;
 import student.enterprise.project.service.CRUDService;
 
 import java.util.List;
@@ -20,6 +23,9 @@ public class ChangeService implements CRUDService<ChangeDTO> {
     private SingleChangeRepository singleChangeRepository;
     private RepeatableChangeRepository repeatableChangeRepository;
     private SingleChangeConverter singleChangeConverter;
+    private SubjectRepository subjectRepository;
+    private LecturerRepository lecturerRepository;
+    private LessonConverter lessonConverter;
 
     @Override
     public ChangeDTO create(ChangeDTO changeDTO) {
@@ -41,8 +47,12 @@ public class ChangeService implements CRUDService<ChangeDTO> {
 
     @Override
     public ChangeDTO update(ChangeDTO changeDTO) {
-        //TODO implement service method
-        return null;
+        SingleChangeEntity changeEntity = singleChangeRepository.getOne(changeDTO.getId());
+        changeEntity.setLessonEntity(lessonConverter.toEntity(changeDTO.getLessonDTO()));
+        changeEntity.setSubjectEntity(subjectRepository.getOne(changeDTO.getSubjectId()));
+        changeEntity.setLecturerEntity(lecturerRepository.getOne(changeDTO.getLecturerId()));
+        singleChangeRepository.save(changeEntity);
+        return singleChangeConverter.toDto(changeEntity);
     }
 
     @Override
