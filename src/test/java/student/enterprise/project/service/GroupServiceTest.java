@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.util.MockUtil;
-import student.enterprise.project.entity.ChangeEntity;
+import student.enterprise.project.dto.ChangeDTO;
 import student.enterprise.project.entity.GroupEntity;
 import student.enterprise.project.repository.GroupRepository;
 import student.enterprise.project.service.impl.GroupService;
@@ -36,10 +36,10 @@ public class GroupServiceTest {
   public void getAllChanges() {
     //Given
     final GroupEntity givenGroupEntity = GroupEntity.builder().build();
-    final List<ChangeEntity> expectedResult = Lists.newArrayList();
+    final List<ChangeDTO> expectedResult = Lists.newArrayList();
 
     //When
-    final List<ChangeEntity> result = groupService.getAllChanges(givenGroupEntity);
+    final List<ChangeDTO> result = groupService.getAllChanges(givenGroupEntity);
 
     //Then
     assertThat(result).containsExactlyInAnyOrderElementsOf(expectedResult);

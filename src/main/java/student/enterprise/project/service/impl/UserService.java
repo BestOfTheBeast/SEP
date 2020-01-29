@@ -1,36 +1,55 @@
 package student.enterprise.project.service.impl;
 
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import student.enterprise.project.converter.impl.UserDtoConverter;
+import student.enterprise.project.converter.impl.UserEntityConverter;
 import student.enterprise.project.dto.UserDTO;
+import student.enterprise.project.entity.UserEntity;
+import student.enterprise.project.repository.UserRepository;
+import student.enterprise.project.service.CRUDService;
 
-public class UserService {
+@Service
+@RequiredArgsConstructor
+public class UserService implements CRUDService<UserDTO> {
 
-  UserDTO userDTO;
+  private final UserRepository repository;
+  private final UserEntityConverter userEntityConverter;
+  private final UserDtoConverter userDtoConverter;
 
-  public void updateUser(UserDTO user) {
-    //Парсим с DataBase в UserDTO
+  @Override
+  public UserDTO update(UserDTO userToUpdate) {
+    UserEntity userEntity = repository.getOne(userToUpdate.getId());
+    userEntity.setLogin(userToUpdate.getLogin());
+    repository.save(userEntity);
+    return userEntityConverter.toDto(userEntity);
   }
 
-  public void deleteUser(long userID) {
-    //for( : ) {
-    // ..................
-    // Цикл, который перебирает объекты
-    if (userDTO.getId() == userID) {
+  @Override
+  public List<UserDTO> getAll() {
+    List<UserEntity> usersEntity = repository.findAll();
+    return userEntityConverter.toDto(usersEntity);
+  }
 
+  @Override
+  public void delete(long userID) {
+    if (!repository.findById(userID).isPresent()) {
+      throw new NullPointerException();
     }
+    repository.deleteById(userID);
   }
 
-  public UserDTO getUser(long userID) {
-    //for( : ) {
-    // ..................
-    // Цикл, который перебирает объекты
-    if (userDTO.getId() == userID) {
-      return userDTO;
-    }
-    return null;
+  @Override
+  public UserDTO create(UserDTO user) {
+    UserEntity userEntity = repository.save(userDtoConverter.toEntity(user));
+    return userEntityConverter.toDto(userEntity);
   }
 
-  public void save(UserDTO user) {
-    //Сохраняем нашего user в DataBase
+  @Override
+  public UserDTO get(long userID) {
+    UserEntity userEntity = repository.findById(userID).orElseThrow(() -> new NullPointerException());
+    return userEntityConverter.toDto(userEntity);
   }
 
 }

@@ -2,7 +2,6 @@ package student.enterprise.project.dto.rozkladKPI;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.Data;
@@ -15,5 +14,5 @@ public class KpiGroupResponse {
 	private String message;
 	private Integer statusCode;
 	private List<KpiGroupDTO> data;
-	
+
 }

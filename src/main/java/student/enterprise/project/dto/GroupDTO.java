@@ -20,8 +20,6 @@ public class GroupDTO {
 
     private GroupDTO parentGroup;
 
-    private List<UserDTO> userList;
-
     private List<ChangeDTO> changeList;
 
     private GroupVisibility visibility;
