@@ -17,19 +17,19 @@ public class UserController implements CRUDController<UserDTO> {
 
   @Override
   public UserDTO get(Long id)  {
-    return userService.findById(id);
+    return userService.get(id);
   }
 
   @Override
   public void delete(@PathVariable Long id) {
-    userService.deleteUser(id);
+    userService.delete(id);
   }
 
   @Override
-  public UserDTO update(@RequestBody UserDTO userToUpdate) { return userService.updateUser(userToUpdate); }
+  public UserDTO update(@RequestBody UserDTO userToUpdate) { return userService.update(userToUpdate); }
 
   @Override
-  public UserDTO create(@RequestBody UserDTO newUserDTO){ return userService.save(newUserDTO); }
+  public UserDTO create(@RequestBody UserDTO newUserDTO){ return userService.create(newUserDTO); }
 
   @Override
   public List<UserDTO> getAll() {
