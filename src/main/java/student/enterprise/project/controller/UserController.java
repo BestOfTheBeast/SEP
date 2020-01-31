@@ -18,15 +18,15 @@ public class UserController {
   UserDTO get(@PathVariable Long userId)  { return userService.findById(userId); }
 
   @DeleteMapping("/{id}")
-  void deleteUser(@PathVariable Long id) {
-    userService.deleteUser(id);
+  void delete(@PathVariable Long id) {
+    userService.delete(id);
   }
 
   @PutMapping
-  UserDTO updateUser(@RequestBody UserDTO userToUpdate) { return userService.updateUser(userToUpdate); }
+  UserDTO update(@RequestBody UserDTO userToUpdate) { return userService.update(userToUpdate); }
 
   @PostMapping("/{id}")
-  UserDTO create(@RequestBody UserDTO newUserDTO){ return userService.save(newUserDTO); }
+  UserDTO create(@RequestBody UserDTO newUserDTO){ return userService.create(newUserDTO); }
 
   @GetMapping
   List<UserDTO> getAll() {
