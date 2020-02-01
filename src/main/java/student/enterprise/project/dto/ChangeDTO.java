@@ -24,6 +24,12 @@ public class ChangeDTO {
     private Long lecturerId;
 
     private LocalDate date;
+    
+    private LocalDate startDate;
+    
+    private LocalDate endDate;
+    
+    private Short twoWeekFlag;
 
     public LocalDateTime getDateTime() {
         return Objects.nonNull(date) && Objects.nonNull(getLessonDTO()) && Objects.nonNull(getLessonDTO().getTime())
