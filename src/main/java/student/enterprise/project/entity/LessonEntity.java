@@ -26,7 +26,6 @@ import student.enterprise.project.converter.jpa.LocalDateAttributeConverter;
 public class  LessonEntity{
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   //Lesson time of day
