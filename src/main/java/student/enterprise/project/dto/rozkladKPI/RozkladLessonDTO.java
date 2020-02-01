@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import student.enterprise.project.entity.rozkladKPI.KpiDayEntity;
 
 @Data
 @Builder
@@ -39,10 +38,7 @@ public class RozkladLessonDTO {
 	@JsonProperty("teachers")
 	private List<RozkladTeacherDTO> teachers;
 	
-	private RozkladTeacherDTO teacher = teachers.get(0);
-	
 	@JsonProperty("rooms")
 	private List<RozkladRoomDTO> rooms;
-	
-	private RozkladRoomDTO room = rooms.get(0);
+
 }

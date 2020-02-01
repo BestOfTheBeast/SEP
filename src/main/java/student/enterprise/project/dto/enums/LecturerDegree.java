@@ -4,5 +4,6 @@ public enum LecturerDegree {
     PROFESSOR,
     DOCENT,
     ASSISTANT,
-    TEACHER
+    TEACHER,
+    EMPTY
 }

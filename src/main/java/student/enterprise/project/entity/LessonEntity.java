@@ -23,7 +23,7 @@ import student.enterprise.project.converter.jpa.LocalDateAttributeConverter;
 @AllArgsConstructor
 @Entity
 @Table(name = "lessons")
-public class LessonEntity {
+public class  LessonEntity{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
