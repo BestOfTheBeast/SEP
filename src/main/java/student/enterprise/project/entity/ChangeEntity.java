@@ -1,14 +1,11 @@
 package student.enterprise.project.entity;
 
-import java.time.LocalDate;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,11 +16,12 @@ import lombok.experimental.SuperBuilder;
   Change entity that contains one change for one specific lesson.
   TODO May be shared
  */
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
 @SuperBuilder
+
 public abstract class ChangeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
