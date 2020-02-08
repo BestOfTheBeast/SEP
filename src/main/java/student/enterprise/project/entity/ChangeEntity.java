@@ -17,6 +17,8 @@ import lombok.experimental.SuperBuilder;
   TODO May be shared
  */
 
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
@@ -40,6 +42,6 @@ public abstract class ChangeEntity {
 	private LecturerEntity lecturerEntity;
 	
 	@ManyToOne
-	@JoinColumn(name = "lecturer_id", referencedColumnName = "id")
+	@JoinColumn(name = "room_id", referencedColumnName = "id")
 	private RoomEntity roomEntity;
 }
