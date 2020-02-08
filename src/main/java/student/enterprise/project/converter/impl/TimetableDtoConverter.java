@@ -8,6 +8,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 
 import student.enterprise.project.converter.AbstractDtoConverter;
+import student.enterprise.project.converter.Converter;
 import student.enterprise.project.dto.enums.LecturerDegree;
 import student.enterprise.project.dto.rozkladKPI.KpiDayDTO;
 import student.enterprise.project.dto.rozkladKPI.KpiDaysDTO;
@@ -22,6 +23,8 @@ import student.enterprise.project.entity.RepeatableChangeEntity;
 import student.enterprise.project.entity.RoomEntity;
 import student.enterprise.project.entity.SubjectEntity;
 
+
+@Converter
 public class TimetableDtoConverter extends AbstractDtoConverter<List<RepeatableChangeEntity>, KpiTwoWeekScheduleDTO> {
 
 	LocalDate firstSemesterStart = LocalDate.of(2020, 9, 1);
