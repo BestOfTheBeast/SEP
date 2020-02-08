@@ -39,7 +39,7 @@ public class TimetableDtoConverter extends AbstractDtoConverter<List<RepeatableC
 		// initialize result List of entities
 		List<RepeatableChangeEntity> result = new ArrayList<>();
 		// setup a list of weeks in the timetable
-		List<KpiWeekDTO> weeks = Arrays.asList(new KpiWeekDTO[] { dto.getFirstWeek(), dto.getSecondWeek() });
+		List<KpiWeekDTO> weeks = Arrays.asList(dto.getFirstWeek(), dto.getSecondWeek());
 		// run through both weeks
 		for (KpiWeekDTO week : weeks) {
 			// used to convert week and day info to 16-bit binary number
@@ -48,8 +48,8 @@ public class TimetableDtoConverter extends AbstractDtoConverter<List<RepeatableC
 			KpiDaysDTO weekDays1 = week.getDays();
 			// setup a list of days in every week
 			List<KpiDayDTO> days = Arrays.asList(
-					new KpiDayDTO[] { weekDays1.getFirstDay(), weekDays1.getSecondDay(), weekDays1.getThirdDay(),
-							weekDays1.getFourthDay(), weekDays1.getFifthDay(), weekDays1.getSixthDay() });
+					weekDays1.getFirstDay(), weekDays1.getSecondDay(), weekDays1.getThirdDay(),
+					weekDays1.getFourthDay(), weekDays1.getFifthDay(), weekDays1.getSixthDay());
 			// run through every day
 			for (KpiDayDTO day : days) {
 				// used to convert week and day info to 16-bit binary number
