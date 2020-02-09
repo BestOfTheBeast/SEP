@@ -25,20 +25,20 @@ import student.enterprise.project.entity.SubjectEntity;
 
 
 @Converter
-public class TimetableDtoConverter extends AbstractDtoConverter<List<RepeatableChangeEntity>, KpiTwoWeekScheduleDTO> {
+public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChangeEntity[], KpiTwoWeekScheduleDTO> {
 
 	LocalDate firstSemesterStart = LocalDate.of(2020, 9, 1);
 	LocalDate firstSemesterEnd = LocalDate.of(2020, 12, 31);
 	LocalDate secondSemesterStart = LocalDate.of(2020, 1, 1);
 	LocalDate secondSemesterEnd = LocalDate.of(2020, 6, 30);
 
-	public TimetableDtoConverter(Class<List<RepeatableChangeEntity>> entityClass, ModelMapper mapper) {
-		super(entityClass, mapper);
+	public TimetableDtoConverter(ModelMapper mapper) {
+		super(RepeatableChangeEntity[].class, mapper);
 	}
 	
 	
 
-	public List<RepeatableChangeEntity> toEntity(KpiTwoWeekScheduleDTO dto) {
+	public RepeatableChangeEntity[] toEntity(KpiTwoWeekScheduleDTO dto) {
 		// initialize result List of entities
 		List<RepeatableChangeEntity> result = new ArrayList<>();
 		// setup a list of weeks in the timetable
@@ -149,19 +149,8 @@ public class TimetableDtoConverter extends AbstractDtoConverter<List<RepeatableC
 			}
 		}
 
-		return result;
+		return result.toArray(new RepeatableChangeEntity[0]);
 		
-	}
-
-	private long toBinary(Short decimal) {
-		long result = 0;
-		for (int i = 15; i > -1; i--) {
-			if (decimal - Math.pow(2, i) >= 0) {
-				result += Math.pow(10, i);
-				decimal = (short) ((int) (decimal) - Math.pow(2, i));
-			}
-		}
-		return result;
 	}
 
 	private Short toDecimal(long binary) {
