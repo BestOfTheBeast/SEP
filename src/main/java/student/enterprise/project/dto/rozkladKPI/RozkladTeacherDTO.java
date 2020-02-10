@@ -17,7 +17,7 @@ public class RozkladTeacherDTO {
 	@JsonProperty("teacher_id")
 	private int id;
 	
-	@JsonProperty("teacher_name")
+	@JsonProperty("teacher_full_name")
 	private String teacherNameSurnameSecondname;
 
 }

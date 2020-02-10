@@ -32,6 +32,10 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 	LocalDate secondSemesterStart = LocalDate.of(2020, 1, 1);
 	LocalDate secondSemesterEnd = LocalDate.of(2020, 6, 30);
 
+	
+	List<RepeatableChangeEntity> lessons = new ArrayList<>();
+	
+	
 	public TimetableDtoConverter(ModelMapper mapper) {
 		super(RepeatableChangeEntity[].class, mapper);
 	}
@@ -39,8 +43,6 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 	
 
 	public RepeatableChangeEntity[] toEntity(KpiTwoWeekScheduleDTO dto) {
-		// initialize result List of entities
-		List<RepeatableChangeEntity> result = new ArrayList<>();
 		// setup a list of weeks in the timetable
 		List<KpiWeekDTO> weeks = Arrays.asList(dto.getFirstWeek(), dto.getSecondWeek());
 		// run through both weeks
@@ -64,15 +66,14 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 				// run through every lesson in day
 				for (RozkladLessonDTO lesson : lessons) {
 					//binary representation of lesson repeat pattern, last 2 bits must be 0's 
-					long lessonRepeat = 000000000000000;
+					long lessonRepeat = 0000_0000_0000_0000;
 					//setting 1 to position of current day
 					String lsnRptStr = longToStr(lessonRepeat);
 					char[] lsnRptStrChrArr = lsnRptStr.toCharArray();
-					lsnRptStrChrArr[lessonBit-1] = '1';
+					lsnRptStrChrArr[15-(lessonBit-1)] = '1';
 					lsnRptStr = String.valueOf(lsnRptStrChrArr);
 					lessonRepeat = strToLong(lsnRptStr);
 					Short lsnRptShrt = toDecimal(lessonRepeat);
-					lsnRptStr.charAt(lessonBit);
 					RozkladTeacherDTO teacher = null;
 					RozkladRoomDTO room = null;
 					if(lesson.getTeachers().size()!=0) {
@@ -95,7 +96,13 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 							surname = teacher.getTeacherNameSurnameSecondname().split(" ")[0];
 							name = teacher.getTeacherNameSurnameSecondname().split(" ")[1];
 							secondName = teacher.getTeacherNameSurnameSecondname().split(" ")[2];
+						} else if (teacher.getTeacherNameSurnameSecondname().split(" ").length == 5) {
+							degree = LecturerDegree.ELDER_TEACHER;
+							surname = teacher.getTeacherNameSurnameSecondname().split(" ")[2];
+							name = teacher.getTeacherNameSurnameSecondname().split(" ")[3];
+							secondName = teacher.getTeacherNameSurnameSecondname().split(" ")[4];
 						}
+						
 					}
 					
 					
@@ -113,7 +120,8 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 					
 					
 					//building the final entity
-					result.add(RepeatableChangeEntity.builder()
+					RepeatableChangeEntity entity = 
+					RepeatableChangeEntity.builder()
 							.lecturerEntity(teacher!=null?(
 									LecturerEntity
 									.builder()
@@ -144,29 +152,57 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 							.twoWeekFlag(lsnRptShrt)
 							.startDate(start)
 							.endDate(end)
-							.build());
+							.build();
+					
+					
+					
+					//check if lesson already exists
+					RepeatableChangeEntity entRes = listContains(entity);
+					if(entRes!=null) {
+						this.lessons.remove(entRes);
+						entity.setTwoWeekFlag(concatFlags(entRes.getTwoWeekFlag(), entity.getTwoWeekFlag()));
+						this.lessons.add(entity);
+					}else {
+						this.lessons.add(entity);
+					}
+					
 				}
 			}
 		}
 
-		return result.toArray(new RepeatableChangeEntity[0]);
+		
+		return this.lessons.toArray(new RepeatableChangeEntity[0]);
+		
 		
 	}
 
 	private Short toDecimal(long binary) {
 		Short result = 0;
 		String binaryStr = longToStr(binary);
-		int power = 14;
-		for (int i = 0; i < 15; i++) {
+		int strlen = binaryStr.length();
+		int power = strlen-1;
+		for (int i = 0; i < strlen; i++) {
 			result = (short) ((int) result + (binaryStr.charAt(i) == '1' ? Math.pow(2, power) : 0));
 			power--;
+		}
+		return result;
+	}
+	
+	
+	private long toBinary(Short decimal) {
+		long result = 0;
+		for (int i = 15; i > -1; i--) {
+			if (decimal - Math.pow(2, i) >= 0) {
+				result += Math.pow(10, i);
+				decimal = (short) ((int) (decimal) - Math.pow(2, i));
+			}
 		}
 		return result;
 	}
 
 	private LecturerDegree parseDegree(String degreeString) {
 		List<String> allowedDegrees = Arrays
-				.asList(new String[] { "професор", "доцент", "асистент", "старший викладач", "викладач" });
+				.asList("професор", "доцент", "асистент", "викладач");
 		if (!allowedDegrees.contains(degreeString))
 			return LecturerDegree.EMPTY;
 		switch (degreeString) {
@@ -183,8 +219,9 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 	
 	private long strToLong(String number) {
 		long result = 000000000000000;
-		int index=14;
-		for(int i=0; i<15; i++) {
+		int strlen = number.length();
+		int index=strlen-1;
+		for(int i=0; i<strlen; i++) {
 			if(number.charAt(i)=='1') {
 				result+=Math.pow(10, index);
 			}
@@ -194,13 +231,57 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 	}
 	
 	private String longToStr(long number) {
-		number+=Math.pow(10, 15);
+		number=number+(long)Math.pow(10, 16);
 		String numStr = Long.toString(number);
 		numStr = numStr.substring(1);
+		
 		return numStr;
 	}
 	
 	private boolean isBetween(LocalDate date, LocalDate start, LocalDate end) {
 		return date.isAfter(start)&&date.isBefore(end);
 	}
+	
+	private RepeatableChangeEntity listContains(RepeatableChangeEntity entity) {
+		Long l1 = 0L;
+		if(entity.getRoomEntity()!=null) {
+			l1 = entity.getRoomEntity().getId();
+		}
+		for(RepeatableChangeEntity e : this.lessons) {
+			
+			Long l2 = 0L;
+			if(e.getRoomEntity()!=null) {
+				l2 = e.getRoomEntity().getId();
+			}
+			if((Long.compare(l1, l2)==0)&&(e.getSubjectEntity().getName().equals(entity.getSubjectEntity().getName()))) {
+				return e;
+			}else {
+			}
+		}
+		return null;
+	}
+	
+	
+	private Short concatFlags(Short flag1, Short flag2) {
+		String str1 = longToStr(toBinary(flag1));
+		String str2 = longToStr(toBinary(flag2));
+		char[] arr1 = str1.toCharArray();
+		char[] arr2 = str2.toCharArray();
+		for(int i=0; i<arr1.length; i++) {
+			if(arr1[i]=='1') {
+				arr2[i]='1';
+			}
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < arr2.length; i++) {
+            stringBuilder.append(arr2[i]);
+        }
+		String resStr = stringBuilder.toString();
+		long resLong = strToLong(resStr);
+		Short result = toDecimal(resLong);
+		
+		return result;
+		
+	}
+	
 }
