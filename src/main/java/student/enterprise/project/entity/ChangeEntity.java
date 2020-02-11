@@ -28,7 +28,7 @@ public abstract class ChangeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "lesson_id", referencedColumnName = "id")
 	private LessonEntity lessonEntity;

@@ -125,7 +125,6 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 							.lecturerEntity(teacher!=null?(
 									LecturerEntity
 									.builder()
-									.id((long)teacher.getId())
 									.degree(degree)
 									.name(name)
 									.surname(surname)
@@ -140,13 +139,11 @@ public class TimetableDtoConverter extends AbstractDtoConverter<RepeatableChange
 							.subjectEntity(
 									SubjectEntity
 									.builder()
-									.id((long)lesson.getId())
 									.name(lesson.getName())
 									.build())
 							.roomEntity(room!=null?(
 									RoomEntity
 									.builder()
-									.id((long)(room.getId()))
 									.name(room.getName())
 									.build()):null)
 							.twoWeekFlag(lsnRptShrt)
