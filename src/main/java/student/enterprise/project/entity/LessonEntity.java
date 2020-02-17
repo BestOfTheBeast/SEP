@@ -1,6 +1,7 @@
 package student.enterprise.project.entity;
 
 import java.time.LocalTime;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +25,7 @@ import student.enterprise.project.converter.jpa.LocalDateAttributeConverter;
 @AllArgsConstructor
 @Entity
 @Table(name = "lessons")
-public class LessonEntity {
+public class  LessonEntity{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

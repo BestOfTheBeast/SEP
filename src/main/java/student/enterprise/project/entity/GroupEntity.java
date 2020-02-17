@@ -27,7 +27,7 @@ import student.enterprise.project.converter.jpa.LocalDateAttributeConverter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "groups")
+@Table(name = "kpi_groups")
 public class GroupEntity {
 
   @Id

@@ -27,3 +27,6 @@ nbdist/
 ### Other ###
 application-*.properties
 *-local.properties
+/HELP.md
+/mvnw
+/mvnw.cmd
